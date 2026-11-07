@@ -91,6 +91,29 @@ or newer, Rust 1.85 or newer, systemd and the kernel drivers listed below are av
 window runs on both Wayland and X11. This is a hardware-specific application: it supports the
 exact PC build described above, not arbitrary RGB or cooler hardware.
 
+## Uninstall
+
+The installer leaves a `mylianpc-uninstall` command, so no source checkout is needed:
+
+```bash
+sudo mylianpc-uninstall
+```
+
+It disables and removes the service, the service/window/probe binaries, the udev rules, the
+systemd unit, the desktop entry and icon, the `mylianpc-update` and `mylianpc-uninstall` commands,
+and the `/opt/mylianpc-src` checkout. The app is also stopped safely, so the controller restores
+its safe defaults.
+
+Profiles and the network state under `/var/lib/mylianpc` are kept by default. Add `--purge` to
+remove them too:
+
+```bash
+sudo mylianpc-uninstall --purge
+```
+
+The `mylianpc` group and its memberships are left in place. A manual checkout install can be
+removed with `sudo packaging/uninstall.sh` instead.
+
 ## Build from source
 
 Rust is installed with rustup in `~/.cargo`:
@@ -114,9 +137,9 @@ sudo packaging/install.sh
 ```
 
 The script installs the service, the window, the probe, the udev rules, the systemd unit, the
-desktop entry and the `mylianpc-update` command, adds the desktop user to the `mylianpc` group,
-and enables the service. **Log out and back in once** so the group membership applies to the
-desktop session (or use `sg mylianpc -c '…'` in a terminal until then).
+desktop entry and the `mylianpc-update` and `mylianpc-uninstall` commands, adds the desktop user
+to the `mylianpc` group, and enables the service. **Log out and back in once** so the group
+membership applies to the desktop session (or use `sg mylianpc -c '…'` in a terminal until then).
 
 The installed service listens on `/run/mylianpc/mylianpc.sock`; the window discovers that path
 automatically. A checkout/development session can override it with `MYLIANPC_SOCKET`.

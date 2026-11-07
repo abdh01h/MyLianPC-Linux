@@ -31,6 +31,8 @@ install -Dm755 "$BIN/mylianpc-ui" /usr/bin/mylianpc-ui
 install -Dm755 "$BIN/mylianpc-probe" /usr/bin/mylianpc-probe
 # The one-command updater re-fetches /opt/mylianpc-src, rebuilds and reinstalls.
 install -Dm755 "$ROOT/install.sh" /usr/local/bin/mylianpc-update
+# The uninstaller stays available without the source checkout.
+install -Dm755 "$ROOT/packaging/uninstall.sh" /usr/local/bin/mylianpc-uninstall
 install -Dm644 "$ROOT/packaging/mylianpc.service" /etc/systemd/system/mylianpc.service
 install -Dm644 "$ROOT/packaging/99-mylianpc.rules" /etc/udev/rules.d/99-mylianpc.rules
 # The desktop entry must be named after the GtkApplication id: KDE and GNOME
@@ -61,6 +63,7 @@ echo "MyLianPC installed."
 echo "  service : systemctl status mylianpc.service"
 echo "  window  : mylianpc-ui (or the MyLianPC desktop entry)"
 echo "  update  : sudo mylianpc-update"
+echo "  remove  : sudo mylianpc-uninstall"
 if [[ -n "${SUDO_USER:-}" ]]; then
     echo "  log out and back in once so $SUDO_USER receives the mylianpc group."
 fi

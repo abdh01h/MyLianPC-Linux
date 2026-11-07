@@ -93,7 +93,9 @@ device nodes.
 - The installed service listens on `/run/mylianpc/mylianpc.sock`. `socket_path()` checks that path
   before `$XDG_RUNTIME_DIR`, because the desktop UI does not inherit the systemd unit's
   environment. `packaging/install.sh` installs the unit, udev rules, desktop entry, binaries and
-  the `mylianpc-update` command. The desktop entry is
+  the `mylianpc-update` and `mylianpc-uninstall` commands (`uninstall.sh` removes the service,
+  binaries, rules, unit, desktop entry, icon, both commands and `/opt/mylianpc-src`; `--purge`
+  also removes `/var/lib/mylianpc` and the socket). The desktop entry is
   `io.github.mylianpc.MyLianPC.desktop` because it must match the GtkApplication id — Plasma and
   GNOME resolve the window icon, task grouping and notifications through that name, and a
   mismatch shows the generic `applications-other` icon in the window decoration. The root
