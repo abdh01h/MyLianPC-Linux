@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=MyLianPC
+Comment=RGB lighting, cooler LCD, fan curves and hardware monitoring
+Exec=mylianpc-ui
+Icon=mylianpc
+Terminal=false
+Categories=System;Settings;HardwareSettings;
+Keywords=rgb;lighting;fan;cooler;lcd;monitor;
+StartupNotify=true

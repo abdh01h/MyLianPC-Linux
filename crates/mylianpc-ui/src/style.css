@@ -1,0 +1,735 @@
+/* ==========================================================================
+   MyLianPC design tokens
+   --------------------------------------------------------------------------
+   Three layers: primitive values -> semantic roles -> component tokens.
+   GTK4 has no CSS custom properties, so colours are @define-color aliases and
+   the remaining scales are mirrored in ui_kit.rs constants.
+   ========================================================================== */
+
+/* === Primitive palette ================================================== */
+@define-color pc_ink_950 #080b11;
+@define-color pc_ink_900 #0c1018;
+@define-color pc_ink_850 #11161f;
+@define-color pc_ink_800 #161c27;
+@define-color pc_ink_700 #1e2733;
+@define-color pc_ink_600 #2a3546;
+@define-color pc_ink_500 #3b4759;
+@define-color pc_ink_400 #647083;
+@define-color pc_ink_300 #93a0b2;
+@define-color pc_ink_200 #c3ccd8;
+@define-color pc_ink_100 #e8edf4;
+@define-color pc_white #ffffff;
+
+@define-color pc_teal_500 #00a884;
+@define-color pc_teal_600 #00916f;
+@define-color pc_teal_soft #103f36;
+@define-color pc_violet_500 #8a6cff;
+@define-color pc_violet_600 #7354f0;
+@define-color pc_blue_500 #3b82f6;
+@define-color pc_green_500 #2ecc71;
+@define-color pc_amber_500 #ffb020;
+@define-color pc_red_500 #ff4d5e;
+@define-color pc_cyan_500 #05d9e8;
+
+/* === Semantic roles ===================================================== */
+@define-color app_bg @theme_bg_color;
+@define-color sidebar_bg mix(@theme_bg_color, @theme_fg_color, 0.045);
+@define-color surface mix(@theme_bg_color, @theme_fg_color, 0.065);
+@define-color surface_raised mix(@theme_bg_color, @theme_fg_color, 0.10);
+@define-color surface_hover mix(@theme_bg_color, @theme_fg_color, 0.13);
+@define-color border_color alpha(@theme_fg_color, 0.14);
+@define-color border_strong alpha(@theme_fg_color, 0.22);
+@define-color text_primary @theme_fg_color;
+@define-color text_muted alpha(@theme_fg_color, 0.62);
+@define-color text_faint alpha(@theme_fg_color, 0.42);
+@define-color accent @pc_teal_500;
+@define-color accent_hover @pc_teal_600;
+@define-color accent_soft alpha(@pc_teal_500, 0.14);
+@define-color accent2 @pc_violet_500;
+@define-color accent2_soft alpha(@pc_violet_500, 0.16);
+@define-color success @pc_green_500;
+@define-color success_soft alpha(@pc_green_500, 0.16);
+@define-color warning @pc_amber_500;
+@define-color warning_soft alpha(@pc_amber_500, 0.16);
+@define-color danger @pc_red_500;
+@define-color danger_soft alpha(@pc_red_500, 0.15);
+@define-color focus_ring alpha(@pc_teal_500, 0.65);
+
+/* === Component tokens =================================================== */
+@define-color card_bg @surface;
+@define-color card_border @border_color;
+@define-color nav_selected_bg @accent_soft;
+@define-color nav_hover_bg alpha(@theme_fg_color, 0.07);
+@define-color button_primary_bg @accent;
+@define-color button_primary_fg #04130e;
+@define-color button_secondary_bg alpha(@theme_fg_color, 0.09);
+
+/* === Window / layout ==================================================== */
+window.mylianpc,
+window.mylianpc .background {
+  background-color: @app_bg;
+  color: @text_primary;
+}
+
+headerbar.mylianpc-header {
+  min-height: 38px;
+  background: @sidebar_bg;
+  border-bottom: 1px solid @border_color;
+}
+
+.sidebar {
+  background: @sidebar_bg;
+  border-right: 1px solid @border_color;
+  padding: 12px 8px 10px 8px;
+}
+
+.brand-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: @text_primary;
+}
+
+.brand-subtitle {
+  font-size: 11px;
+  color: @text_muted;
+}
+
+.nav-list {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.nav-list row {
+  border-radius: 0;
+  padding: 0;
+  margin: 1px 0;
+  border: none;
+  background: transparent;
+  color: @text_muted;
+}
+
+.nav-list row:hover {
+  background: @nav_hover_bg;
+  color: @text_primary;
+}
+
+.nav-list row:selected {
+  background: @nav_selected_bg;
+  color: @accent;
+}
+
+.nav-list row:selected label {
+  color: @accent;
+  font-weight: 700;
+}
+
+.nav-row {
+  padding: 9px 6px;
+}
+
+.sidebar-footer {
+  border-top: 1px solid @border_color;
+  padding-top: 10px;
+  background: transparent;
+}
+
+.nav-icon {
+  color: @text_primary;
+  opacity: 1;
+}
+
+.nav-list row:selected .nav-icon {
+  color: @accent;
+}
+
+/* === Page chrome ======================================================== */
+.page-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: @text_primary;
+}
+
+.page-subtitle {
+  font-size: 13px;
+  color: @text_muted;
+}
+
+.about-name {
+  font-size: 26px;
+  font-weight: 700;
+  color: @text_primary;
+}
+
+.section-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: @text_muted;
+}
+
+.card-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: @text_muted;
+}
+
+.card {
+  background: @card_bg;
+  border: 1px solid @card_border;
+  border-radius: 0;
+  padding: 16px;
+}
+
+.card-flat {
+  background: transparent;
+  border: 1px solid @card_border;
+  border-radius: 0;
+  padding: 16px;
+}
+
+.card-accent {
+  background: @accent_soft;
+  border: 1px solid alpha(@accent, 0.32);
+  border-radius: 0;
+  padding: 16px;
+}
+
+.card-warning {
+  background: @warning_soft;
+  border: 1px solid alpha(@warning, 0.35);
+  border-radius: 0;
+  padding: 12px 14px;
+}
+
+.card-error {
+  background: @danger_soft;
+  border: 1px solid alpha(@danger, 0.35);
+  border-radius: 0;
+  padding: 12px 14px;
+}
+
+/* === Typography ========================================================= */
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: @text_primary;
+}
+
+.stat-value-accent {
+  font-size: 28px;
+  font-weight: 700;
+  color: @accent;
+}
+
+.stat-value-violet {
+  font-size: 28px;
+  font-weight: 700;
+  color: @accent2;
+}
+
+.stat-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: @text_muted;
+}
+
+.stat-unit {
+  font-size: 13px;
+  color: @text_muted;
+}
+
+.value {
+  font-size: 13px;
+  color: @text_primary;
+}
+
+.value-muted {
+  font-size: 12px;
+  color: @text_muted;
+}
+
+.mono {
+  font-family: monospace;
+}
+
+.error-text {
+  color: @danger;
+}
+
+.success-text {
+  color: @success;
+}
+
+.warning-text {
+  color: @warning;
+}
+
+.accent-text {
+  color: @accent;
+}
+
+.violet-text {
+  color: @accent2;
+}
+
+/* === Pills / badges ===================================================== */
+.pill {
+  border-radius: 0;
+  padding: 2px 9px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.pill-ok {
+  background: @success_soft;
+  color: @success;
+}
+
+.pill-warn {
+  background: @warning_soft;
+  color: @warning;
+}
+
+.pill-error {
+  background: @danger_soft;
+  color: @danger;
+}
+
+.pill-muted {
+  background: alpha(@theme_fg_color, 0.08);
+  color: @text_muted;
+}
+
+.pill-accent {
+  background: @accent_soft;
+  color: @accent;
+}
+
+/* === Buttons ============================================================ */
+button.btn {
+  min-height: 32px;
+  padding: 6px 13px;
+  border-radius: 0;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+button.btn-primary {
+  background: @button_primary_bg;
+  color: @button_primary_fg;
+  border: 1px solid @button_primary_bg;
+}
+
+button.btn-primary:hover {
+  background: @accent_hover;
+  border-color: @accent_hover;
+}
+
+button.btn-secondary {
+  background: @button_secondary_bg;
+  color: @text_primary;
+  border: 1px solid @card_border;
+}
+
+button.btn-secondary:hover {
+  background: @surface_hover;
+}
+
+button.btn-ghost {
+  background: transparent;
+  color: @text_muted;
+  border: 1px solid transparent;
+}
+
+button.btn-ghost:hover {
+  background: @nav_hover_bg;
+  color: @text_primary;
+}
+
+button.btn-danger {
+  background: transparent;
+  color: @danger;
+  border: 1px solid alpha(@danger, 0.35);
+}
+
+button.btn-danger:hover {
+  background: @danger_soft;
+}
+
+button.btn:focus {
+  border-color: @focus_ring;
+}
+
+button.nav-button {
+  background: transparent;
+  border: none;
+  min-height: 26px;
+  padding: 2px 6px;
+  border-radius: 0;
+}
+
+button.nav-button:hover {
+  background: @nav_hover_bg;
+}
+
+button.preset {
+  min-height: 48px;
+  padding: 8px 10px;
+  border-radius: 0;
+  background: alpha(@theme_fg_color, 0.05);
+  border: 1px solid @card_border;
+  font-weight: 600;
+}
+
+button.preset:checked {
+  background: @accent_soft;
+  border-color: alpha(@accent, 0.55);
+  color: @accent;
+}
+
+/* === Inputs ============================================================= */
+entry,
+spinbutton,
+dropdown button {
+  border-radius: 0;
+  min-height: 30px;
+}
+
+entry:focus,
+spinbutton:focus,
+dropdown button:focus {
+  border-color: @focus_ring;
+}
+
+/* Keep keyboard focus in the teal accent instead of Breeze's blue outline. */
+window.mylianpc button:focus,
+window.mylianpc entry:focus,
+window.mylianpc spinbutton:focus,
+window.mylianpc dropdown button:focus,
+window.mylianpc switch:focus {
+  outline-color: @focus_ring;
+  outline-style: solid;
+  outline-width: 2px;
+  outline-offset: 0;
+}
+
+.field-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: @text_muted;
+}
+
+.field-hint {
+  font-size: 11px;
+  color: @text_faint;
+}
+
+/* === Sliders / progress ================================================= */
+scale trough {
+  min-height: 6px;
+  border-radius: 0;
+  background: alpha(@theme_fg_color, 0.12);
+}
+
+scale highlight {
+  border-radius: 0;
+  background: @accent;
+}
+
+scale slider {
+  min-width: 16px;
+  min-height: 16px;
+  border-radius: 0;
+  background: @text_primary;
+  border: 2px solid @app_bg;
+}
+
+progressbar trough {
+  min-height: 7px;
+  border-radius: 0;
+  background: alpha(@theme_fg_color, 0.10);
+}
+
+progressbar progress {
+  border-radius: 0;
+  background: @accent;
+}
+
+progressbar.violet progress {
+  background: @accent2;
+}
+
+/* === Lists / rows ======================================================= */
+list {
+  background: transparent;
+}
+
+list row {
+  border-radius: 0;
+  padding: 0;
+}
+
+list row:hover {
+  background: alpha(@theme_fg_color, 0.045);
+}
+
+list row:selected {
+  background: @accent_soft;
+}
+
+/* GtkDropDown's closed display is a GtkListItemWidget. Breeze paints its
+   :selected state with the bright selection colour, which looks like selected
+   text inside the control. Keep the closed control flat; popup rows keep the
+   selection tint. */
+dropdown row,
+dropdown row:selected,
+dropdown listitem,
+dropdown listitem:selected {
+  background: transparent;
+  color: @text_primary;
+}
+
+popover row:selected,
+popover listitem:selected {
+  background: @accent_soft;
+  color: @text_primary;
+}
+
+/* Hovered menu rows use the normal foreground in both themes; Breeze colours
+   them with the accent otherwise, which is hard to read on the tinted row. */
+popover row:hover,
+popover listitem:hover {
+  background: alpha(@theme_fg_color, 0.08);
+  color: @text_primary;
+}
+
+.row-padded {
+  padding: 12px;
+}
+
+.row-title {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.row-subtitle {
+  font-size: 12px;
+  color: @text_muted;
+}
+
+/* === Misc =============================================================== */
+.divider {
+  min-height: 1px;
+  background: @border_color;
+}
+
+.preview-frame {
+  background: alpha(@theme_fg_color, 0.035);
+  border: 1px solid @card_border;
+  border-radius: 0;
+  padding: 12px;
+}
+
+.color-swatch {
+  min-width: 26px;
+  min-height: 26px;
+  padding: 0;
+  border-radius: 0;
+  border: 1px solid @border_strong;
+}
+
+.color-swatch:hover {
+  border-color: @text_primary;
+}
+
+.toast {
+  background: @surface_raised;
+  border: 1px solid @border_color;
+  border-radius: 0;
+  padding: 8px 14px;
+  font-size: 12px;
+}
+
+.notice-title {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.muted {
+  color: @text_muted;
+}
+
+.faint {
+  color: @text_faint;
+}
+
+
+/* Legacy class aliases kept for pages that have not been migrated yet. */
+.mylianpc-heading { font-weight: 700; }
+.mylianpc-dim { color: @text_muted; }
+.mylianpc-error { color: @danger; }
+.mylianpc-warning { color: @warning; }
+.mylianpc-accent { color: @accent; font-weight: 700; }
+.mylianpc-value { font-size: 13px; }
+
+.transparent-scroll,
+.transparent-scroll scrolledwindow,
+.transparent-scroll viewport,
+.transparent-scroll list,
+.flush-list {
+  background: transparent;
+  background-color: transparent;
+}
+
+/* Light theme overrides for status text and accent text. */
+window.mylianpc.light-tone .stat-value-accent,
+window.mylianpc.light-tone .accent-text,
+window.mylianpc.light-tone .nav-list row:selected label,
+window.mylianpc.light-tone .pill-accent {
+  color: #008f75;
+}
+
+window.mylianpc.light-tone .stat-value-violet,
+window.mylianpc.light-tone .violet-text {
+  color: #5b3fd0;
+}
+
+window.mylianpc.light-tone .success-text,
+window.mylianpc.light-tone .pill-ok {
+  color: #1f8a4c;
+}
+
+window.mylianpc.light-tone .warning-text,
+window.mylianpc.light-tone .pill-warn {
+  color: #a86500;
+}
+
+window.mylianpc.light-tone .error-text,
+window.mylianpc.light-tone .pill-error {
+  color: #c42b3a;
+}
+
+window.mylianpc.light-tone .pill-muted {
+  color: #5b6472;
+}
+
+.profile-list {
+  background: transparent;
+}
+
+.profile-row {
+  background: alpha(@theme_fg_color, 0.025);
+  border: 1px solid @card_border;
+  border-radius: 0;
+}
+
+.profile-row:hover {
+  background: alpha(@theme_fg_color, 0.05);
+}
+
+/* Light theme: darken the green/teal accents so they stay legible. */
+window.mylianpc.light-tone .stat-value-accent,
+window.mylianpc.light-tone .accent-text {
+  color: #00614f;
+}
+
+window.mylianpc.light-tone .nav-list row:selected {
+  background-color: alpha(#00816a, 0.20);
+}
+
+window.mylianpc.light-tone .nav-list row:selected label {
+  color: #005445;
+}
+
+window.mylianpc.light-tone .pill-accent {
+  background-color: alpha(#00816a, 0.18);
+  color: #005445;
+}
+
+window.mylianpc.light-tone .pill-ok {
+  background-color: alpha(#1f8a4c, 0.18);
+  color: #146b3a;
+}
+
+window.mylianpc.light-tone .success-text {
+  color: #146b3a;
+}
+
+window.mylianpc.light-tone button.btn-primary {
+  background-color: #007a63;
+  border-color: #007a63;
+  color: #ffffff;
+}
+
+window.mylianpc.light-tone button.btn-primary:hover {
+  background-color: #00614f;
+  border-color: #00614f;
+}
+
+window.mylianpc.light-tone button.preset:checked {
+  background-color: alpha(#00816a, 0.20);
+  border-color: #00816a;
+  color: #005445;
+}
+
+window.mylianpc.light-tone scale highlight {
+  background-color: #00816a;
+}
+
+window.mylianpc.light-tone progressbar progress {
+  background-color: #00816a;
+}
+
+window.mylianpc.light-tone progressbar.violet progress {
+  background-color: #5b3fd0;
+}
+
+window.mylianpc.light-tone .nav-list row {
+  color: #303640;
+}
+
+window.mylianpc.light-tone .nav-list row:selected {
+  color: #005445;
+}
+
+window.mylianpc.light-tone .nav-list row:selected .nav-icon {
+  color: #005445;
+}
+
+/* Square corners everywhere, including popovers and dialogs owned by the app. */
+window,
+window * {
+  border-radius: 0;
+}
+
+/* A small radius is reserved for interactive controls, never for surfaces.
+   The first rule also covers the native colour dialog; the second has the
+   specificity to beat component class rules inside the main window. */
+window button,
+window entry,
+window spinbutton,
+window spinbutton entry,
+window dropdown,
+window dropdown button,
+window menubutton,
+window switch,
+window switch slider,
+window textview,
+window textview text {
+  border-radius: 4px;
+}
+
+window.mylianpc button,
+window.mylianpc entry,
+window.mylianpc spinbutton,
+window.mylianpc spinbutton entry,
+window.mylianpc dropdown,
+window.mylianpc dropdown button,
+window.mylianpc menubutton,
+window.mylianpc switch,
+window.mylianpc switch slider,
+window.mylianpc textview,
+window.mylianpc textview text {
+  border-radius: 4px;
+}

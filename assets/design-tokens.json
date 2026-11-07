@@ -1,0 +1,161 @@
+{
+  "$schema": "https://design-tokens.org/schema.json",
+  "meta": {
+    "name": "MyLianPC",
+    "version": "1.0.0",
+    "description": "Desktop control panel for the GIGABYTE / Lian Li / Corsair PC build.",
+    "implementations": {
+      "gtk4": "crates/mylianpc-ui/src/style.css",
+      "rust": "crates/mylianpc-ui/src/ui_kit.rs",
+      "docs": "docs/design-system.md"
+    }
+  },
+  "primitive": {
+    "color": {
+      "ink-950": "#080b11",
+      "ink-900": "#0c1018",
+      "ink-850": "#11161f",
+      "ink-800": "#161c27",
+      "ink-700": "#1e2733",
+      "ink-600": "#2a3546",
+      "ink-500": "#3b4759",
+      "ink-400": "#647083",
+      "ink-300": "#93a0b2",
+      "ink-200": "#c3ccd8",
+      "ink-100": "#e8edf4",
+      "teal-500": "#00a884",
+      "teal-600": "#00916f",
+      "violet-500": "#8a6cff",
+      "violet-600": "#7354f0",
+      "blue-500": "#3b82f6",
+      "green-500": "#2ecc71",
+      "amber-500": "#ffb020",
+      "red-500": "#ff4d5e",
+      "cyan-500": "#05d9e8",
+      "white": "#ffffff"
+    },
+    "space": {
+      "1": "4px",
+      "2": "8px",
+      "3": "10px",
+      "4": "12px",
+      "5": "16px",
+      "6": "24px",
+      "7": "32px"
+    },
+    "radius": {
+      "sm": "4px",
+      "md": "4px",
+      "lg": "0px",
+      "full": "0px"
+    },
+    "font-size": {
+      "xs": "11px",
+      "sm": "12px",
+      "base": "13px",
+      "md": "14px",
+      "lg": "17px",
+      "xl": "24px",
+      "display": "28px"
+    },
+    "font-weight": {
+      "regular": 400,
+      "semibold": 600,
+      "bold": 700
+    }
+  },
+  "semantic": {
+    "color": {
+      "dark": {
+        "background": "{primitive.color.ink-900}",
+        "sidebar": "{primitive.color.ink-850}",
+        "surface": "{primitive.color.ink-800}",
+        "surface-hover": "{primitive.color.ink-700}",
+        "border": "#2a3342",
+        "text": "{primitive.color.ink-100}",
+        "text-muted": "{primitive.color.ink-300}",
+        "text-faint": "{primitive.color.ink-400}",
+        "accent": "{primitive.color.teal-500}",
+        "accent-hover": "{primitive.color.teal-600}",
+        "accent-2": "{primitive.color.violet-500}",
+        "success": "{primitive.color.green-500}",
+        "warning": "{primitive.color.amber-500}",
+        "danger": "{primitive.color.red-500}",
+        "focus": "{primitive.color.teal-500}"
+      },
+      "light": {
+        "background": "#f7f8fa",
+        "sidebar": "#eef0f4",
+        "surface": "#ffffff",
+        "surface-hover": "#e8ebf0",
+        "border": "#d5dae2",
+        "text": "#14181f",
+        "text-muted": "#5b6472",
+        "text-faint": "#7d8796",
+        "accent": "#007a63",
+        "accent-hover": "#00614f",
+        "accent-2": "#6a4de0",
+        "success": "#1f8a4c",
+        "warning": "#a86500",
+        "danger": "#c42b3a",
+        "focus": "#008f75"
+      }
+    },
+    "spacing": {
+      "page-x": "{primitive.space.6}",
+      "section": "{primitive.space.5}",
+      "card-padding": "{primitive.space.5}",
+      "control-gap": "{primitive.space.2}"
+    }
+  },
+  "component": {
+    "button": {
+      "primary-bg": "{semantic.color.dark.accent}",
+      "primary-fg": "#04130e",
+      "primary-hover": "{semantic.color.dark.accent-hover}",
+      "secondary-bg": "rgba(232,237,244,0.09)",
+      "secondary-border": "{semantic.color.dark.border}",
+      "padding-x": "{primitive.space.4}",
+      "padding-y": "{primitive.space.2}",
+      "radius": "{primitive.radius.sm}",
+      "min-height": "32px"
+    },
+    "card": {
+      "bg": "{semantic.color.dark.surface}",
+      "border": "{semantic.color.dark.border}",
+      "padding": "{primitive.space.5}",
+      "radius": "{primitive.radius.lg}",
+      "gap": "{primitive.space.3}"
+    },
+    "input": {
+      "bg": "{semantic.color.dark.surface}",
+      "border": "{semantic.color.dark.border}",
+      "focus-border": "{semantic.color.dark.focus}",
+      "radius": "{primitive.radius.sm}",
+      "min-height": "30px"
+    },
+    "nav": {
+      "width": "222px",
+      "row-radius": "0px",
+      "row-padding-x": "10px",
+      "row-padding-y": "9px",
+      "selected-bg": "rgba(0,168,132,0.14)",
+      "selected-fg": "{semantic.color.dark.accent}"
+    },
+    "pill": {
+      "radius": "{primitive.radius.full}",
+      "padding-x": "9px",
+      "padding-y": "2px",
+      "font-size": "{primitive.font-size.xs}",
+      "success-bg": "rgba(46,204,113,0.16)",
+      "warning-bg": "rgba(255,176,32,0.16)",
+      "danger-bg": "rgba(255,77,94,0.15)"
+    },
+    "stat": {
+      "value-size": "{primitive.font-size.display}",
+      "value-weight": "{primitive.font-weight.bold}",
+      "label-size": "{primitive.font-size.xs}",
+      "label-color": "{semantic.color.dark.text-muted}"
+    }
+  }
+}

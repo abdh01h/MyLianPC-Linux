@@ -1,0 +1,22 @@
+[package]
+name = "mylianpc-service"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+chrono.workspace = true
+base64.workspace = true
+signal-hook.workspace = true
+uuid.workspace = true
+mylianpc-core = { path = "../mylianpc-core" }
+mylianpc-hardware = { path = "../mylianpc-hardware" }
+mylianpc-lcd = { path = "../mylianpc-lcd" }
+
+[dev-dependencies]
+tempfile = "3"
+image.workspace = true

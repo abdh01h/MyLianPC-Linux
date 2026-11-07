@@ -1,0 +1,2 @@
+# The system C toolchain (gcc) is installed, so Cargo uses the default `cc`
+# linker. The earlier LLD override was only needed on a machine without gcc.

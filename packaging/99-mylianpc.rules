@@ -1,0 +1,19 @@
+# MyLianPC udev rules. Install to /etc/udev/rules.d/ and reload:
+#   sudo udevadm control --reload-rules && sudo udevadm trigger
+#
+# The group must exist and the desktop user must be a member:
+#   sudo groupadd --system mylianpc
+#   sudo usermod -aG mylianpc "$USER"
+#
+# These rules grant the service group access to the two USB devices and to the
+# AMD SMBus adapter used for the Corsair DIMMs. They do not touch SPD.
+
+# GIGABYTE Fusion2 motherboard RGB controller (HID)
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="048d", ATTRS{idProduct}=="5711", MODE="0660", GROUP="mylianpc"
+
+# Lian Li HydroShift II LCD-C (vendor-specific WinUSB device on Windows)
+SUBSYSTEM=="usb", ATTR{idVendor}=="1cbe", ATTR{idProduct}=="a021", MODE="0660", GROUP="mylianpc"
+
+# AMD FCH SMBus (Corsair DRAM RGB controller). Narrow this to the PIIX4 adapter
+# once its i2c-dev name is confirmed on this kernel; do not grant every i2c bus.
+SUBSYSTEM=="i2c-dev", KERNEL=="i2c-*", ATTRS{name}=="SMBus PIIX4 adapter*", MODE="0660", GROUP="mylianpc"

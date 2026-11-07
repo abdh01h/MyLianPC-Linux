@@ -1,0 +1,33 @@
+[Unit]
+Description=MyLianPC hardware service (RGB, cooler LCD, fan curves)
+Documentation=file:///usr/share/doc/mylianpc/README.md
+After=systemd-udev-settle.service
+Wants=systemd-udev-settle.service
+
+[Service]
+Type=simple
+# The service is the only process allowed to touch the devices. The process
+# group is mylianpc so the socket and the profile directory are usable by the
+# desktop user (who joins that group via the udev/install step).
+User=root
+Group=mylianpc
+Environment=MYLIANPC_SOCKET=/run/mylianpc/mylianpc.sock
+Environment=MYLIANPC_DATA_DIR=/var/lib/mylianpc
+RuntimeDirectory=mylianpc
+RuntimeDirectoryMode=0755
+StateDirectory=mylianpc
+StateDirectoryMode=0750
+UMask=0007
+ExecStart=/usr/bin/mylianpc-service
+Restart=on-failure
+RestartSec=5s
+TimeoutStopSec=20s
+
+# Hardware access is through /dev/hidraw*, /dev/bus/usb and /dev/i2c-*.
+PrivateTmp=yes
+ProtectHome=yes
+NoNewPrivileges=no
+# Do not add DeviceAllow until the udev rules and exact device set are known.
+
+[Install]
+WantedBy=multi-user.target
