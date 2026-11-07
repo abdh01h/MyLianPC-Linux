@@ -1,11 +1,24 @@
 # MyLianPC Linux
 
-A native Linux reimplementation of [MyLianPC](../MyLianPC) for the same PC build:
+A native Linux reimplementation of
+[MyLianPC](https://github.com/abdh01h/MyLianPC) for the same PC build:
 **GIGABYTE B850 AORUS ELITE WIFI7 + Lian Li HydroShift II LCD-C + Corsair Vengeance RGB DDR5
 + Lian Li Vector V100R**.
 
 This is not the Windows binary under Wine. It is a Rust service and a GTK4 window that talk to the
 hardware through Linux interfaces: `hidraw`, raw `usbfs`, `i2c-dev`, `hwmon`, NVML and RAPL.
+
+## Screenshots
+
+| Dashboard | Lighting |
+|:--:|:--:|
+| ![Dashboard](docs/screenshots/dashboard.png) | ![Lighting](docs/screenshots/lighting.png) |
+| *Live readings, storage, cooler and network* | *Zones, effects, colours and brightness* |
+
+| LCD | Cooling |
+|:--:|:--:|
+| ![LCD](docs/screenshots/lcd.png) | ![Cooling](docs/screenshots/cooling.png) |
+| *Themes with a live panel preview* | *Curves, presets and the current temperature* |
 
 ## What it does
 
@@ -189,13 +202,15 @@ crates/
   mylianpc-probe/      read-only hardware probe CLI
 install.sh             one-command install/update entry point
 packaging/             udev rules, systemd unit, install/uninstall, desktop entry, icon
+docs/                  screenshots and the design system
+assets/                design tokens as JSON
 ```
 
 ## Reference
 
-The Windows implementation remains in `../MyLianPC` and is the source of truth for protocols,
-effect maths and safety behaviour. Ports are deterministic; the C# file is named in each module's
-doc comment.
+The Windows implementation remains in [MyLianPC](https://github.com/abdh01h/MyLianPC) and is the
+source of truth for protocols, effect maths and safety behaviour. Ports are deterministic; the C#
+file is named in each module's doc comment.
 
 ## License
 
