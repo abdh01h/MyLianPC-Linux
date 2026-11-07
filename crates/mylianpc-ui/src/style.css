@@ -71,11 +71,9 @@ window.mylianpc .background {
   color: @text_primary;
 }
 
-headerbar.mylianpc-header {
-  min-height: 38px;
-  background: @sidebar_bg;
-  border-bottom: 1px solid @border_color;
-}
+/* The desktop draws the window frame (KWin/Aurorae on KDE, the WM on X11, or
+   GTK's default decoration on CSD-only compositors), so there is no app-side
+   headerbar to style here. */
 
 .sidebar {
   background: @sidebar_bg;

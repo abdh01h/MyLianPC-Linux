@@ -93,7 +93,11 @@ device nodes.
 - The installed service listens on `/run/mylianpc/mylianpc.sock`. `socket_path()` checks that path
   before `$XDG_RUNTIME_DIR`, because the desktop UI does not inherit the systemd unit's
   environment. `packaging/install.sh` installs the unit, udev rules, desktop entry, binaries and
-  the `mylianpc-update` command. The root `install.sh` is the one-command installer/updater:
+  the `mylianpc-update` command. The desktop entry is
+  `io.github.mylianpc.MyLianPC.desktop` because it must match the GtkApplication id — Plasma and
+  GNOME resolve the window icon, task grouping and notifications through that name, and a
+  mismatch shows the generic `applications-other` icon in the window decoration. The root
+  `install.sh` is the one-command installer/updater:
   it installs build dependencies and Rust, keeps a source checkout in `/opt/mylianpc-src`,
   builds and calls `packaging/install.sh`. Running it again (or `sudo mylianpc-update`) updates
   the installation.
@@ -114,7 +118,10 @@ device nodes.
 - Lighting has one colour by default; `+ Add colour`, `Remove last` and `Use one colour` manage the
   stops, and `Apply to every zone` is the first, primary action.
 - The window opens at 1150×800, is resizable down to ~880 px, and reflows previews/cards/actions to
-  one column when narrow.
+  one column when narrow. The UI does not set a client-side titlebar, so the desktop draws the
+  frame: KWin's Global Theme window decoration on Plasma, the WM on X11, GTK's default titlebar on
+  CSD-only compositors. Setting a `HeaderBar` would force Breeze-style GTK decorations and break
+  that.
 - UI IPC is asynchronous: dashboard/footer/cooling refreshes, LCD draft previews and hardware
   apply actions run on worker threads and return to the GTK main context, so the window does not
   freeze while the service samples sensors or applies a profile. A window-level capture key

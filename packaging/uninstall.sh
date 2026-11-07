@@ -13,6 +13,7 @@ systemctl disable --now mylianpc.service 2>/dev/null || true
 rm -f /usr/bin/mylianpc-service /usr/bin/mylianpc-ui /usr/bin/mylianpc-probe
 rm -f /etc/systemd/system/mylianpc.service
 rm -f /etc/udev/rules.d/99-mylianpc.rules
+rm -f /usr/share/applications/io.github.mylianpc.MyLianPC.desktop
 rm -f /usr/share/applications/mylianpc.desktop
 rm -f /usr/share/icons/hicolor/scalable/apps/mylianpc.svg
 

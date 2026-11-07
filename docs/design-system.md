@@ -18,7 +18,10 @@ The visual language is implemented in:
 3. **Group by object, not by widget.** A card is one device, one curve or one settings area.
 4. **Never rely on colour alone.** Status pills carry a word as well as a colour.
 5. **Follow the system theme.** Semantic colours are derived from GTK theme colours, so light and
-   dark both work without a second palette.
+   dark both work without a second palette. The window frame is not drawn by the app: without a
+   client-side titlebar the desktop supplies it — Plasma's Global Theme window decoration on KDE
+   Wayland and X11, the window manager elsewhere, or GTK's default decoration on CSD-only
+   compositors.
 
 ## Token layers
 

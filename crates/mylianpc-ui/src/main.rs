@@ -2,7 +2,9 @@
 //!
 //! The window is a thin client: it talks to `mylianpc-service` over the Unix
 //! socket and never opens a device node. It follows the system theme through
-//! the semantic tokens in `style.css`.
+//! the semantic tokens in `style.css`, and it does not install a client-side
+//! titlebar, so the desktop draws the window frame (KDE's Global Theme window
+//! decoration, the X11 window manager, or GTK's default decoration).
 
 mod client;
 mod pages;
@@ -15,7 +17,7 @@ use std::rc::Rc;
 use gtk4 as gtk;
 use gtk::prelude::*;
 use gtk::{
-    Application, ApplicationWindow, Box as GtkBox, Button, DrawingArea, HeaderBar, Image, Label,
+    Application, ApplicationWindow, Box as GtkBox, Button, DrawingArea, Image, Label,
     ListBox, ListBoxRow, Orientation, Overlay, SelectionMode, Stack,
 };
 
@@ -77,6 +79,9 @@ fn build_ui(app: &Application, page: Option<&str>) {
         window.present();
         return;
     }
+    // Wayland resolves the window icon from the desktop entry named after the
+    // application id; X11 takes it from the default icon name.
+    gtk::Window::set_default_icon_name("mylianpc");
     install_css();
 
     let stack = Stack::new();
@@ -292,16 +297,6 @@ fn build_ui(app: &Application, page: Option<&str>) {
     main.append(&sidebar);
     main.append(&overlay);
 
-    // ---------------------------------------------------------------- header
-    let header = HeaderBar::new();
-    header.add_css_class("mylianpc-header");
-    let title = ui_kit::label("MyLianPC", "brand-title");
-    header.set_title_widget(Some(&title));
-    if std::env::var_os("MYLIANPC_DEBUG_SIZES").is_some() {
-        let (min, natural, _, _) = header.measure(gtk::Orientation::Horizontal, -1);
-        eprintln!("header: min {min}, natural {natural}");
-    }
-
     if std::env::var_os("MYLIANPC_DEBUG_SIZES").is_some() {
         let (min, natural, _, _) = main.measure(gtk::Orientation::Horizontal, -1);
         eprintln!("main: min {min}, natural {natural}");
@@ -330,7 +325,6 @@ fn build_ui(app: &Application, page: Option<&str>) {
         });
     }
     set_tone(&window);
-    window.set_titlebar(Some(&header));
     if let Some(settings) = gtk::Settings::default() {
         let window_for_theme = window.clone();
         settings.connect_gtk_theme_name_notify(move |_| {

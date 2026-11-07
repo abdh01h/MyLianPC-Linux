@@ -33,7 +33,12 @@ install -Dm755 "$BIN/mylianpc-probe" /usr/bin/mylianpc-probe
 install -Dm755 "$ROOT/install.sh" /usr/local/bin/mylianpc-update
 install -Dm644 "$ROOT/packaging/mylianpc.service" /etc/systemd/system/mylianpc.service
 install -Dm644 "$ROOT/packaging/99-mylianpc.rules" /etc/udev/rules.d/99-mylianpc.rules
-install -Dm644 "$ROOT/packaging/mylianpc-ui.desktop" /usr/share/applications/mylianpc.desktop
+# The desktop entry must be named after the GtkApplication id: KDE and GNOME
+# resolve the window icon, the task grouping and notifications through it.
+install -Dm644 "$ROOT/packaging/io.github.mylianpc.MyLianPC.desktop" \
+    /usr/share/applications/io.github.mylianpc.MyLianPC.desktop
+# Older installs used a name that did not match the app id (wrong window icon).
+rm -f /usr/share/applications/mylianpc.desktop
 install -Dm644 "$ROOT/packaging/mylianpc.svg" /usr/share/icons/hicolor/scalable/apps/mylianpc.svg
 
 # The desktop user must be in the group to open the socket and (for the probe)

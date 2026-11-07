@@ -8,3 +8,4 @@ Terminal=false
 Categories=System;Settings;HardwareSettings;
 Keywords=rgb;lighting;fan;cooler;lcd;monitor;
 StartupNotify=true
+StartupWMClass=mylianpc-ui
