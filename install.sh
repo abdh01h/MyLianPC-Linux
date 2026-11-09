@@ -24,6 +24,14 @@ if [[ $EUID -ne 0 ]]; then
     fail "run this script as root (for example: curl … | sudo bash)"
 fi
 
+# The service is a systemd unit and the installer writes to /usr and /etc.
+# Arch derivatives on OpenRC (Artix) and immutable images (SteamOS) need
+# different packaging, so stop with a clear message instead of halfway through.
+if [[ ! -d /run/systemd/system ]] || ! command -v systemctl >/dev/null 2>&1; then
+    fail "this installer requires systemd. Arch derivatives using OpenRC (for example Artix) are not supported."
+fi
+[[ -w /usr ]] || fail "/usr is not writable. Immutable/read-only systems such as SteamOS need a writable root or an overlay."
+
 # ---------------------------------------------------------------- source tree
 # A checkout passed directly (./install.sh) is used as-is. A piped or installed
 # copy clones/updates a stable source tree under /opt.
@@ -64,7 +72,16 @@ install_build_tools() {
     elif command -v dnf >/dev/null 2>&1; then
         dnf install -y gcc gcc-c++ make pkgconf-pkg-config gtk4-devel git curl ca-certificates
     elif command -v pacman >/dev/null 2>&1; then
-        pacman -S --needed --noconfirm base-devel pkgconf gtk4 git curl ca-certificates
+        # Arch does not split -devel packages, so gtk4 itself carries the
+        # headers. Do not run `pacman -Sy pkg`: a partial upgrade is unsupported
+        # and a stale sync database makes the install fail with 404s. Point the
+        # user at a full upgrade and retry instead.
+        if [[ -n "$(pacman -Qu 2>/dev/null)" ]]; then
+            printf 'warning: pending package upgrades found; Arch recommends "sudo pacman -Syu" before installing.\n' >&2
+        fi
+        if ! pacman -S --needed --noconfirm base-devel pkgconf gtk4 git curl ca-certificates; then
+            fail "pacman could not install the build dependencies. Run 'sudo pacman -Syu' to update the system, then rerun this installer."
+        fi
     elif command -v zypper >/dev/null 2>&1; then
         zypper --non-interactive install gcc gcc-c++ make pkgconf-pkg-config gtk4-devel git curl ca-certificates
     else

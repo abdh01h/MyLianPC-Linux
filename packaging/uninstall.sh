@@ -17,6 +17,7 @@ rm -f /etc/udev/rules.d/99-mylianpc.rules
 rm -f /usr/share/applications/io.github.mylianpc.MyLianPC.desktop
 rm -f /usr/share/applications/mylianpc.desktop
 rm -f /usr/share/icons/hicolor/scalable/apps/mylianpc.svg
+rm -f /etc/modules-load.d/mylianpc.conf
 
 # The installed commands and the installer's source checkout.
 rm -f /usr/local/bin/mylianpc-update /usr/local/bin/mylianpc-uninstall

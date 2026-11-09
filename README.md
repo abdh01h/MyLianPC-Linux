@@ -91,6 +91,33 @@ or newer, Rust 1.85 or newer, systemd and the kernel drivers listed below are av
 window runs on both Wayland and X11. This is a hardware-specific application: it supports the
 exact PC build described above, not arbitrary RGB or cooler hardware.
 
+### Arch Linux notes
+
+Arch, EndeavourOS, CachyOS and Manjaro work with the normal one-command installer. A few
+things are specific to rolling Arch systems:
+
+* Run `sudo pacman -Syu` before installing. Arch does not support partial upgrades, and a stale
+  package database makes `pacman -S` fail with 404s. The installer warns when upgrades are
+  pending and stops with that instruction if the install cannot proceed.
+* The one-command install goes through `sudo`. A fresh Arch install that does not have `sudo` yet
+  needs `pacman -S sudo` first, or the script can be run as root through `su`.
+* The installer writes `/etc/modules-load.d/mylianpc.conf` with `i2c-dev` and `i2c-piix4`, and
+  loads both immediately, so `/dev/i2c-*` exists after every boot. Arch does not load `i2c-dev`
+  by default.
+* **Corsair RAM RGB needs `acpi_enforce_resources=lax` on the kernel command line on this board.**
+  Without it `i2c-piix4` cannot claim the AMD SMBus; the rest of the application still works.
+  Add it to your boot loader and reboot:
+  * GRUB: add it to `GRUB_CMDLINE_LINUX_DEFAULT` in `/etc/default/grub`, then run
+    `sudo grub-mkconfig -o /boot/grub/grub.cfg`.
+  * systemd-boot: append it to the `options` line of `/boot/loader/entries/*.conf`.
+  * Limine: append it to the entry cmdline.
+* `iw` is optional. Install it (`sudo pacman -S iw`) to show Wi-Fi SSID, signal and channel on the
+  dashboard; the installer only prints a note when it is missing.
+* A minimal install has no fonts, so the LCD preview draws no text. Install `ttf-dejavu` or any
+  font package.
+* Arch derivatives without systemd (Artix/OpenRC) are not supported. Immutable images such as
+  SteamOS need a writable `/usr` (the installer refuses read-only roots).
+
 ## Uninstall
 
 The installer leaves a `mylianpc-uninstall` command, so no source checkout is needed:
